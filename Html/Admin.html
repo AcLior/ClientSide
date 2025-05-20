@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin Users Panel</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .toggle-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-active {
+            background-color: #dc3545; /* אדום - פעיל => אפשר לכבות */
+        }
+
+        .btn-inactive {
+            background-color: #28a745; /* ירוק - לא פעיל => אפשר להפעיל */
+        }
+    </style>
+</head>
+<body>
+    <h2>👨‍💼 Admin - Users Table</h2>
+    <table id="usersTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Toggle</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="../JS/ajaxCalls.js"></script>
+
+    <script>
+        let usersTable;
+
+        $(document).ready(function () {
+            usersTable = $('#usersTable').DataTable();
+            loadUsers();
+        });
+
+        function loadUsers() {
+            ajaxCall("GET", "https://proj.ruppin.ac.il/cgroup8/test2/tar1/api/Users/All", null,
+                function (users) {
+                    updateUserTable(users);
+                },
+                function () {
+                    alert("❌ Failed to load users.");
+                });
+        }
+
+        function updateUserTable(users) {
+            usersTable.clear();
+
+            users.forEach(user => {
+                usersTable.row.add([
+                    user.id,
+                    user.name,
+                    user.email,
+                    user.active ? '✅ Active' : '❌ Inactive',
+                    `<button
+                            class="toggle-btn ${user.active ? 'btn-active' : 'btn-inactive'}"
+                            data-id="${user.id}">
+                            ${user.active ? 'Deactivate' : 'Activate'}
+                         </button>`
+                ]);
+            });
+
+            usersTable.draw();
+        }
+
+        $('#usersTable tbody').on('click', '.toggle-btn', function () {
+            const userId = $(this).data("id");
+            console.log(userId);
+            ajaxCall("PUT", `https://proj.ruppin.ac.il/cgroup8/test2/tar1/api/Users/${userId}/active`, null,
+                function () {
+                    loadUsers(); // רענון הטבלה בלבד
+                },
+                function () {
+                    alert("❌ Failed to toggle user status.");
+                });
+        });
+    </script>
+</body>
+</html>

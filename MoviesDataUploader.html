@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>📤 Upload Movies</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="JS/ajaxCalls.js"></script>
+    <script src="../JS/Movies.js"></script> <!-- הקובץ שמכיל את מערך הסרטים -->
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📤 Upload All Movies to Server</h1>
+    <button id="uploadBtn">Start Upload</button>
+    <div id="status"></div>
+
+    <script>
+        $("#uploadBtn").on("click", function () {
+            if (!Array.isArray(movies) || movies.length === 0) {
+                $("#status").text("❌ No movies found in Movies.js");
+                return;
+            }
+
+            const formattedMovies = movies.map(movie => ({
+                url: movie.url || "",
+                primaryTitle: movie.primaryTitle || "",
+                description: movie.description || "",
+                primaryImage: movie.primaryImage || "",
+                year: parseInt(movie.year) || 2000,
+                releaseDate: movie.releaseDate || "2000-01-01",
+                language: movie.language || "English",
+                budget: movie.budget == null ? 100000 : movie.budget,
+                grossWorldWide: movie.grossWorldWide || 0,
+                genres: Array.isArray(movie.genres) ? movie.genres.join(', ') : movie.genres || "",
+                isAdult: movie.isAdult || false,
+                runtimeMinutes: movie.runtimeMinutes || 0,
+                averageRating: movie.averageRating || 0,
+                numVotes: movie.numVotes || 0
+            }));
+
+            $("#status").text("Uploading...");
+
+            $.ajax({
+                url: "https://localhost:7011/api/Movies/batch",
+                type: "POST",
+                data: JSON.stringify(formattedMovies),
+                contentType: "application/json",
+                success: function (res) {
+                    $("#status").text("✅ All movies uploaded successfully!");
+                    console.log(res);
+                },
+                error: function (xhr, status, error) {
+                    $("#status").text("❌ Upload failed. " + xhr.status + " " + xhr.statusText);
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Movies List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- CSS -->
+    <link href="../CSS/Navbar.css" rel="stylesheet" />
+    <link href="../CSS/Index.css" rel="stylesheet" />
+
+    <!-- JS -->
+    <script src="../JS/ajaxCalls.js"></script>
+    <script src="../JS/Navbar.js"></script>
+    <script src="../JS/AuthGuard.js"></script>
+    <script src="../JS/Index.js"></script>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <h1>🎬 Movies</h1>
+
+    <div class="filters">
+        <input type="text" id="titleFilter" placeholder="Title" />
+        <input type="date" id="startDate" />
+        <input type="date" id="endDate" />
+        <button id="applyFiltersBtn">Apply Filters</button>
+        <button id="clearBtn">Clear</button>
+    </div>
+
+    <div id="movies-container" class="card-grid"></div>
+
+    <div id="pagination">
+        <button id="prevPageBtn">⏮ Prev</button>
+        <span id="pageNumber">1</span>
+        <button id="nextPageBtn">Next ⏭</button>
+    </div>
+
+    <!-- Rent Modal -->
+    <div id="rentModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Rent Movie</h2>
+            <p id="rentMovieTitle"></p>
+
+            <label>Start Date:</label>
+            <input type="date" id="rentStartDate"><br>
+
+            <label>End Date:</label>
+            <input type="date" id="rentEndDate"><br>
+
+            <p>Total Price: <span id="totalPrice">0</span> ₪</p>
+
+            <button id="confirmRentBtn">Rent Now</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login/Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="../JS/ajaxCalls.js"></script>
+    <script src="../JS/GoogleCredentials.js"></script>
+    <script src="../JS/Menu.js"></script>
+    <script src="../JS/Navbar.js"></script>
+    <link href="../CSS/Navbar.css" rel="stylesheet" />
+    <link href="../CSS/Menu.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="form-wrapper">
+        <div class="form-container">
+            <!-- LOGIN FORM -->
+            <div id="loginDiv" class="form-content">
+                <h2>🔐 Login</h2>
+                <form id="loginForm">
+                    <input type="email" id="loginEmail" placeholder="Email" required />
+                    <input type="password" id="loginPassword" placeholder="Password" required />
+                    <button type="submit">Login</button>
+                </form>
+
+                <!-- Google Button -->
+                <div id="googleBtnContainer" style="margin-top: 20px;">
+                    <div id="g_id_onload"
+                         data-client_id="899149000911-9th35ce9lbdd4o0rtde8g4obe96chupj.apps.googleusercontent.com"
+                         data-callback="handleGoogleLogin"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin" data-type="standard" data-size="large"></div>
+                </div>
+
+                <p>Don't have an account? <a href="#" onclick="toggleForms('register')">Register here</a></p>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="registerDiv" class="form-content" style="display: none;">
+                <h2>📝 Register</h2>
+                <form id="registerForm">
+                    <input type="text" id="regName" placeholder="Full Name" required />
+                    <input type="email" id="regEmail" placeholder="Email" required />
+                    <input type="password" id="regPassword" placeholder="Password" required />
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" onclick="toggleForms('login')">Login here</a></p>
+            </div>
+
+            <!-- LOGGED IN VIEW -->
+            <div id="loggedInDiv" class="form-content" style="display: none;">
+                <h2>👋 Welcome, <span id="userName"></span>!</h2>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

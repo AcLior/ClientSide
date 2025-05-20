@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Movies</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="../CSS/Navbar.css">
+    <link rel="stylesheet" href="../CSS/MyMovies.css">
+
+    <script src="../JS/ajaxCalls.js"></script>
+    <script src="../JS/Navbar.js"></script>
+    <script src="../JS/AuthGuard.js"></script>
+    <script src="../JS/MyMovies.js"></script>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <h1>🎥 My Rented Movies</h1>
+    <div id="my-movies-container" class="card-grid"></div>
+
+    <!-- Transfer Modal -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeTransfer">&times;</span>
+            <h2>Transfer Movie</h2>
+            <label for="userSelect">Select user to transfer to:</label>
+            <select id="userSelect"><option disabled selected>Loading users...</option></select>
+            <br><br>
+            <button id="confirmTransferBtn">Confirm Transfer</button>
+        </div>
+    </div>
+
+    <!-- Rent Modal -->
+    <div id="rentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRent">&times;</span>
+            <h2>Rent Movie</h2>
+            <label for="rentStart">Start Date:</label>
+            <input type="date" id="rentStart" /><br /><br />
+            <label for="rentEnd">End Date:</label>
+            <input type="date" id="rentEnd" /><br /><br />
+            <p>Total Price: <span id="totalPrice">₪0</span></p>
+            <button id="confirmRentBtn">Confirm Rent</button>
+        </div>
+    </div>
+</body>
+</html>

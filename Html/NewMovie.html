@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add New Movie</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JS/Navbar.js"></script>
+
+    <link href="../CSS/Navbar.css" rel="stylesheet" />
+    <link href="../CSS/NewMovie.css" rel="stylesheet" />
+    <script src="../JS/NewMovie.js"></script>
+    <script src="../JS/AuthGuard.js"></script>
+    <script src="../JS/ajaxCalls.js"></script>
+</head>
+<body>
+
+    <div id="navbar-placeholder"></div> <!-- 🧩 nav will load here -->
+
+
+    <div class="form-wrapper">
+        <div class="form-container">
+
+            <h2>🎬 Add New Movie</h2>
+            <form id="movieForm" novalidate>
+                <input type="text" id="url" placeholder="URL" />
+
+                <input type="text" id="primaryTitle" placeholder="Primary Title *" required />
+                <input type="text" id="description" placeholder="Description" />
+
+                <input type="text" id="primaryImage" placeholder="Image URL *" required />
+
+                <input type="number" id="year" placeholder="Year *" required />
+
+                <input type="date" id="releaseDate" required />
+
+                <input type="text" id="language" placeholder="Language *" list="languageList" required />
+                <datalist id="languageList">
+                    <option value="English" />
+                    <option value="Spanish" />
+                    <option value="French" />
+                    <option value="Japanese" />
+                    <option value="Hebrew" />
+                </datalist>
+
+                <input type="number" id="budget" placeholder="Budget *(min 100000)" min="100000" required/>
+
+                <input type="number" id="grossWorldwide" placeholder="Gross Worldwide (default 0)" />
+
+                <input type="text" id="genres" placeholder="Genres (e.g. Action,Adventure)" list="genreList" />
+                <datalist id="genreList">
+                    <option value="Action" />
+                    <option value="Comedy" />
+                    <option value="Drama" />
+                    <option value="Adventure" />
+                    <option value="Sci-Fi" />
+                    <option value="Horror" />
+                </datalist>
+
+                <input type="number" id="runtimeMinutes" placeholder="Runtime Minutes *" required />
+                <label><input type="checkbox" id="isAdult" /> Is Adult</label>
+                <button type="submit">Add Movie</button>
+            </form>
+        </div>
+        </div>
+</body>
+</html>
